@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import com.api.BlogAppApi.model.BlogAppPostModel;
 import com.api.BlogAppApi.repository.BlogAppPostRepository;
 
+import jakarta.annotation.PostConstruct;
+
 @Component
 public class DataUtils {
 

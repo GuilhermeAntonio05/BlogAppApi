@@ -64,8 +64,8 @@ public class BlogAppController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(blogAppPostService.save(postModel));
 	}
 
-	@PostMapping(value = "/posts/{id}")
-	public ResponseEntity<Object> savePost(@PathVariable("id") UUID id,
+	@PostMapping(value = "/newcoment/{id}")
+	public ResponseEntity<Object> saveComentPost(@PathVariable("id") UUID id,
 			@RequestBody @Valid PostComentsDto postComentsDto) {
 
 		var postComentario = new PostsComentsModel();
@@ -87,6 +87,7 @@ public class BlogAppController {
 		if (!posts.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Blog not found");
 		}
+
 		blogAppPostService.delete(posts.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Blog deleted successfully");
 	}

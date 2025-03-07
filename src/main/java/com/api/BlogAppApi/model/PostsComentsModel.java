@@ -3,8 +3,10 @@ package com.api.BlogAppApi.model;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,8 @@ public class PostsComentsModel {
 	@Column(columnDefinition = "text")
 	private String comentario;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonBackReference
 	private BlogAppPostModel blogAppPostModel;
 
 	public LocalDate getData() {
