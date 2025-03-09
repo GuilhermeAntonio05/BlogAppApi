@@ -64,7 +64,7 @@ public class BlogAppController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(blogAppPostService.save(postModel));
 	}
 
-	@PostMapping(value = "/newcoment/{id}")
+	@PostMapping(value = "/newcomment/{id}")
 	public ResponseEntity<Object> saveComentPost(@PathVariable("id") UUID id,
 			@RequestBody @Valid PostComentsDto postComentsDto) {
 
