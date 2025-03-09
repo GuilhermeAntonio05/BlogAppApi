@@ -31,7 +31,7 @@ public class PostsComentsModel {
 	@Column(columnDefinition = "text")
 	private String comentario;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonBackReference
 	private BlogAppPostModel blogAppPostModel;
 

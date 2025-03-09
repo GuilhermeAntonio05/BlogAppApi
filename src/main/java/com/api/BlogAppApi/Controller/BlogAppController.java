@@ -91,6 +91,19 @@ public class BlogAppController {
 		blogAppPostService.delete(posts.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Blog deleted successfully");
 	}
+	
+
+	@DeleteMapping(value = "/comment/{id}") // value não é necessário
+	public ResponseEntity<Object> deleteComent(@PathVariable("id") UUID id) {
+		Optional<PostsComentsModel> comment = postComentService.findById(id);
+
+		if (!comment.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Comment not found");
+		}
+
+		postComentService.delete(comment.get());
+		return ResponseEntity.status(HttpStatus.OK).body("Comment deleted successfully");
+	}
 
 	@PutMapping("/posts/{id}")
 	public ResponseEntity<Object> updatePost(@PathVariable("id") UUID id,
@@ -113,5 +126,26 @@ public class BlogAppController {
 		existingPost.setTexto(updatedPost.texto());
 		existingPost.setData(LocalDate.now());
 		return ResponseEntity.ok(blogAppPostService.save(existingPost));
+	}
+	
+	@PutMapping("/comment/{id}")
+	public ResponseEntity<Object> updateComment(@PathVariable("id") UUID id,
+			@RequestBody @Valid PostComentsDto updatedComment) {
+
+		// Pesquisa se existe o post
+		Optional<PostsComentsModel> existingCommentOptional = postComentService.findById(id);
+
+		if (existingCommentOptional.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Blog post not found.");
+		}
+
+		// essa linha faz com que a variável existingPost receba o post pesquisado
+		PostsComentsModel existingComment = existingCommentOptional.get();
+
+		// Estas linhas garantem que o post requisitado seja atualizado
+		// com a descrição do novo post
+		existingComment.setComentario(updatedComment.comentario());
+		existingComment.setData(LocalDate.now());
+		return ResponseEntity.ok(postComentService.save(existingComment));
 	}
 }

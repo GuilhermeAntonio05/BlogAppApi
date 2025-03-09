@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +35,7 @@ public class BlogAppPostModel implements Serializable {
 	@Column(columnDefinition = "text")
 	private String texto;
 	
-	@OneToMany(mappedBy = "blogAppPostModel",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "blogAppPostModel", cascade = CascadeType.ALL)
 	private List<PostsComentsModel> postsComents;
 
 	public List<PostsComentsModel> getPostsComents() {
